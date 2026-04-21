@@ -1,27 +1,30 @@
+NIHARIKA.B
+25215011105
+AI
+
 import torch
 import torch.nn as nn
 import matplotlib.pyplot as plt
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 
-# --------
+# ---\]]55]5]]8
+
 # 1. Hyperparameters
-# -------------------------------
+
 T = 1000  # total timesteps
 beta_start = 1e-4
 beta_end = 0.02
 batch_size = 8
 
-# -------------------------------
 # 2. Noise Schedule
-# -------------------------------
+
 betas = torch.linspace(beta_start, beta_end, T)
 alphas = 1. - betas
 alpha_hat = torch.cumprod(alphas, dim=0)
 
-# -------------------------------
 # 3. Dataset (Fashion-MNIST)
-# -------------------------------
+
 transform = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize((0.5,), (0.5,))
@@ -36,9 +39,8 @@ dataset = datasets.FashionMNIST(
 
 loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
-# -------------------------------
 # 4. Forward Diffusion Function
-# -------------------------------
+
 def add_noise(x, t):
     """
     x: [B, 1, 28, 28]
@@ -51,9 +53,9 @@ def add_noise(x, t):
     x_t = sqrt_alpha_hat * x + sqrt_one_minus_alpha_hat * noise
     return x_t, noise
 
-# -------------------------------
+
 # 5. Get Sample Images
-# -------------------------------
+
 images, labels = next(iter(loader))
 
 # Random timesteps for each image
@@ -62,9 +64,9 @@ t = torch.randint(0, T, (images.shape[0],))
 # Add noise
 noisy_images, noise = add_noise(images, t)
 
-# -------------------------------
+
 # 6. Visualization
-# -------------------------------
+
 fig, axs = plt.subplots(2, batch_size, figsize=(15, 4))
 
 for i in range(batch_size):
